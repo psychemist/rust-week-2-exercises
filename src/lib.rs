@@ -77,8 +77,8 @@ pub fn classify_script(script: &[u8]) -> ScriptType {
     }
 }
 
-// // TODO: complete Outpoint tuple struct
-// pub struct Outpoint();
+// Complete Outpoint tuple struct
+pub struct Outpoint(pub String, pub usize);
 
 // pub fn read_pushdata(script: &[u8]) -> &[u8] {
 //     // TODO: Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
