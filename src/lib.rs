@@ -5,13 +5,13 @@ pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
     // Decode hex string into Vec<u8>, return error string on failure
     match decode(hex_str) {
         Ok(raw_bytes) => Ok(raw_bytes),
-        Err(_) => Err(String::from("Could not decode hex string"))
+        Err(_) => Err(String::from("Could not decode hex string")),
     }
 }
 
 pub fn to_big_endian(bytes: &[u8]) -> Vec<u8> {
     // Reverse the byte order of input slice and return as Vec<u8>
-    let mut bytes_vec: Vec<u8> = bytes.try_into().unwrap();
+    let mut bytes_vec: Vec<u8> = bytes.into();
     bytes_vec.reverse();
     bytes_vec
 }
@@ -53,7 +53,7 @@ pub fn parse_satoshis(input: &str) -> Result<u64, String> {
     // Parse input string to u64, return error string if invalid
     match input.parse::<u64>() {
         Ok(num) => Ok(num),
-        Err(_) => Err(String::from("Invalid satoshi amount"))
+        Err(_) => Err(String::from("Invalid satoshi amount")),
     }
 }
 
@@ -71,7 +71,7 @@ pub fn classify_script(script: &[u8]) -> ScriptType {
             (0x76, 0xa9, 0x14) => ScriptType::P2PKH,
             // P2WPKH: 0P_0 0P_PUSHBYTES_20
             (0x00, 0x14, _) => ScriptType::P2WPKH,
-            _ => ScriptType::Unknown
+            _ => ScriptType::Unknown,
         }
     } else {
         ScriptType::Unknown
@@ -84,7 +84,7 @@ pub struct Outpoint(pub String, pub usize);
 pub fn read_pushdata(script: &[u8]) -> Vec<u8> {
     // Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
     let mut scr = script;
-    let pre_opcodes= &mut [0u8; 2];
+    let pre_opcodes = &mut [0u8; 2];
     let mut buffer = vec![0u8; 20];
 
     // Read and discard exactly two bytes then read and return exactly 20 bytes
