@@ -120,7 +120,6 @@ pub fn move_txid(txid: String) -> String {
     header + &txid
 }
 
-// Add necessary derive traits
 #[derive(Debug, PartialEq)]
 pub enum Opcode {
     OpChecksig,
@@ -143,13 +142,14 @@ impl Opcode {
     }
 }
 
-// // TODO: Add necessary derive traits
-// pub struct UTXO {
-//     pub txid: Vec<u8>,
-//     pub vout: u32,
-//     pub value: u64,
-// }
+#[derive(Clone, Debug, PartialEq)]
+pub struct UTXO {
+    pub txid: Vec<u8>,
+    pub vout: u32,
+    pub value: u64,
+}
 
-// pub fn consume_utxo(utxo: UTXO) -> UTXO {
-//     // TODO: Implement UTXO consumption logic (if any)
-// }
+pub fn consume_utxo(utxo: UTXO) -> UTXO {
+    // Implement UTXO consumption logic (if any)
+    utxo
+}
