@@ -120,18 +120,28 @@ pub fn move_txid(txid: String) -> String {
     header + &txid
 }
 
-// // TODO: Add necessary derive traits
-// pub enum Opcode {
-//     OpChecksig,
-//     OpDup,
-//     OpInvalid,
-// }
+// Add necessary derive traits
+#[derive(Debug, PartialEq)]
+pub enum Opcode {
+    OpChecksig,
+    OpDup,
+    OpInvalid,
+}
 
-// impl Opcode {
-//     pub fn from_byte(byte: u8) -> Result<Self, String> {
-//         // TODO: Implement mapping from byte to Opcode variant
-//     }
-// }
+impl Opcode {
+    pub fn from_byte(byte: u8) -> Result<Self, String> {
+        // Implement mapping from byte to Opcode variant
+        match byte {
+            0xAC => Ok(Self::OpChecksig),
+            0x76 => Ok(Self::OpDup),
+            _ => {
+                let mut err_str = String::from("Invalid opcode: ");
+                err_str.push_str(&format!("0x{:02X}", byte));
+                Err(err_str)
+            }
+        }
+    }
+}
 
 // // TODO: Add necessary derive traits
 // pub struct UTXO {
